@@ -5,10 +5,11 @@
 #### Feb 14, 2016:
 
 * [Filebeat](https://github.com/elastic/beats)'s prospector/harvester approach is inappropriate for unifiedbeat
-  * the volume of data is less than syslogs
-  * only one folder is involved
-  * only one unified2 file should be tailed
-  * of course, the above is wrong if a server is used to centralize unified2 files from multiple sensors
+  * while unifiedbeat does work **as-is** today, changes should recognize:
+    * the volume of data is less than syslogs
+    * there's only one folder containing unified2 files
+    * there's only one unified2 file that is **active** and should be **tailed**
+  * of course, the above is all wrong if a server is used to centralize unified2 files from multiple sensors
 * add ```os.Stat(r.reader.File.Name())``` to ```spoolrecordreader.go```
   * handles disappearing/renamed files
 * add sample unified2 files in ```sample_data```
