@@ -1,6 +1,6 @@
 ***
 
-### Changes/Enhancements to use spooler feature in [Unifiedbeat](https://github.com/cleesmith/unifiedbeat)
+### Changes needed to use the spooler feature in [Unifiedbeat](https://github.com/cleesmith/unifiedbeat)
 
 #### Feb 14, 2016:
 
