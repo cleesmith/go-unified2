@@ -16,6 +16,7 @@
 * [x] add examples
   * ```clsreadu2.go``` simple reader with counts
   * ```clsspoolreader.go``` to test **SpoolRecordReader**
+    * add ```CloseHook``` to **rename** (_archive_) an indexed file
 
 ***
 ***
