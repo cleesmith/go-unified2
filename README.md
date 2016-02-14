@@ -6,7 +6,7 @@
   * handles disappearing/renamed files
 * add sample unified2 files in ```sample_data```
 * add examples
-  * ```clsreadu2.go``` simple reader
+  * ```clsreadu2.go``` simple reader with counts
   * ```clsspoolreader.go``` to test **SpoolRecordReader**
 
 ***
