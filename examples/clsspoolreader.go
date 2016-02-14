@@ -1,39 +1,62 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
+	"path"
 	"time"
 
 	"github.com/cleesmith/go-unified2"
 )
 
+// cd examples
 // go run clsspoolreader.go ../sample_data snort.log
 
 func main() {
 	folder := os.Args[1]     // sample_data
 	filePrefix := os.Args[2] // snort.log
 	reader := unified2.NewSpoolRecordReader(folder, filePrefix)
-	log.Printf("reader=%T=%v\n", reader, reader)
+	reader.Logger(log.New(os.Stdout, "SpoolRecordReader: ", 0))
 
 	closeHookCount := 0
-	reader.CloseHook = func(filename string) {
+	reader.CloseHook = func(filepath string) {
 		closeHookCount++
+		log.Printf("*** reader.CloseHook called ... count=%d filepath=%s", closeHookCount, filepath)
+		filedir := path.Dir(filepath)
+		filename := path.Base(filepath)
+		newname := fmt.Sprintf("/indexed_%v.", time.Now().Unix())
+		filepathRename := filedir + newname + filename
+		err := os.Rename(filepath, filepathRename)
+		if err != nil {
+			log.Printf("unable to rename file '%v' to '%v' err: %v", filepath, filepathRename, err)
+			return
+		}
+		log.Printf("Indexed file '%v' and renamed to '%v'", filepath, filepathRename)
 	}
 
 	for {
 		record, err := reader.Next()
-		log.Printf("reader=%T=%v\n", reader, reader)
+		// filename, offset := reader.Offset()
+		// if closeHookCount >= 1 {
+		// 	log.Printf("closeHookCount=%d filename=%s; offset=%d", closeHookCount, filename, offset)
+		// 	os.Exit(999)
+		// }
 		if err != nil {
 			if err == io.EOF {
 				// EOF is returned when the end of the last spool file
 				// is reached and there is nothing else to read.  For
 				// the purposes of the example, just sleep for a
 				// moment and try again.
-				time.Sleep(time.Millisecond)
+				// log.Printf("err=%v\n", err)
+				// filename, offset := reader.Offset()
+				// log.Printf("closeHookCount=%d filename=%s; offset=%d", closeHookCount, filename, offset)
+				// os.Exit(999)
+				log.Println("sleep")
+				time.Sleep(time.Second * 5)
 			} else {
-				log.Fatal("Unexpected error: ", err) // Unexpected error.
+				log.Fatalf("Unexpected error: '%v'", err)
 			}
 		}
 
@@ -59,7 +82,7 @@ func main() {
 		// }
 
 		filename, offset := reader.Offset()
-		log.Printf("Current position: filename=%s; offset=%d", filename, offset)
+		log.Printf("closeHookCount=%d filename=%s; offset=%d", closeHookCount, filename, offset)
 	}
 
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/cleesmith/go-unified2"
 )
 
+// cd examples
 // go run clsreadu2.go ../sample_data/snort.log.1452978988
 
 func main() {

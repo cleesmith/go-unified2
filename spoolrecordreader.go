@@ -43,11 +43,9 @@ import (
 // and Suricata as new unified2 files are closed and a new one is
 // created when they reach a certain size.
 type SpoolRecordReader struct {
-
-	// CloseHook will be called when a file is closed.  It can be used
-	// to delete or archive the file.
+	// CloseHook will be called when a file is closed.
+	// It can be used to delete, archive, or rename the file.
 	CloseHook func(string)
-
 	directory string
 	prefix    string
 	logger    *log.Logger
@@ -103,6 +101,10 @@ func (r *SpoolRecordReader) openNext() bool {
 		r.log("Failed to get filenames: %s", err)
 		return false
 	}
+	// cls: list files found: order is ascending
+	// for _, file := range files {
+	// 	r.log("openNext: file: %#v", file)
+	// }
 
 	if len(files) == 0 {
 		// Nothing to do.
@@ -127,6 +129,7 @@ func (r *SpoolRecordReader) openNext() bool {
 		}
 	}
 
+	// r.log("openNext: nextFilename: %#v", nextFilename)
 	if nextFilename == "" {
 		r.log("No new files found.")
 		return false
@@ -166,11 +169,20 @@ func (r *SpoolRecordReader) Next() (interface{}, error) {
 		}
 
 		record, err := r.reader.Next()
-
 		if err == io.EOF {
 			if r.openNext() {
 				continue
 			}
+		}
+
+		// Check if the file name exists.
+		// Errors if the file was removed/rotated after reading and before
+		// calling the stat function
+		// info, statErr := r.reader.File.Stat()
+		_, statErr := os.Stat(r.reader.File.Name())
+		if statErr != nil {
+			r.log("Next: unexpected error reading from '%s'; error: '%s'", r.reader.File.Name(), statErr)
+			return nil, statErr
 		}
 
 		return record, err
@@ -179,8 +191,8 @@ func (r *SpoolRecordReader) Next() (interface{}, error) {
 
 }
 
-// Offset returns the current filename that is being processed and its
-// read position (the offset).
+// Offset returns the current filename that is being processed,
+// and its read position (the offset).
 func (r *SpoolRecordReader) Offset() (string, int64) {
 	if r.reader != nil {
 		return path.Base(r.reader.Name()), r.reader.Offset()
