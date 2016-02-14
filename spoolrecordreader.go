@@ -95,8 +95,8 @@ func (r *SpoolRecordReader) getFiles() ([]os.FileInfo, error) {
 	return filtered[0:filtered_idx], nil
 }
 
-// openNext opens the next available file if it exists.  If a new file
-// is opened its filename will be returned.
+// openNext opens the next available file if it exists.
+// If a new file is opened its filename will be returned.
 func (r *SpoolRecordReader) openNext() bool {
 	files, err := r.getFiles()
 	if err != nil {
@@ -153,7 +153,6 @@ func (r *SpoolRecordReader) openNext() bool {
 
 // Next returns the next record read from the spool.
 func (r *SpoolRecordReader) Next() (interface{}, error) {
-
 	for {
 
 		// If we have no current file, try to open one.
