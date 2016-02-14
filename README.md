@@ -5,6 +5,8 @@
 #### Feb 14, 2016:
 
 * [Filebeat](https://github.com/elastic/beats)'s prospector/harvester approach is inappropriate for unifiedbeat
+  * the volume of data is less than syslogs
+  * only one unified2 file should be tailed
 * add ```os.Stat(r.reader.File.Name())``` to ```spoolrecordreader.go```
   * handles disappearing/renamed files
 * add sample unified2 files in ```sample_data```
