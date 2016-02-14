@@ -5,8 +5,6 @@ import (
 	"log"
 	"os"
 
-	// "github.com/jasonish/go-unified2"
-
 	"github.com/cleesmith/go-unified2"
 )
 
