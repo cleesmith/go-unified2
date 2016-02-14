@@ -11,7 +11,7 @@
     * there's only one unified2 file that is **active** and should be **tailed**
   * of course, the above is all wrong if a server is used to centralize unified2 files from multiple sensors
 * add ```os.Stat(r.reader.File.Name())``` to ```spoolrecordreader.go```
-  * handles disappearing/renamed files
+  * to deal with renamed or deleted files
 * add sample unified2 files in ```sample_data```
 * add examples
   * ```clsreadu2.go``` simple reader with counts
