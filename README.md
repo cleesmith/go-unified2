@@ -10,6 +10,7 @@
     * there's only one folder containing unified2 files
     * there's only one unified2 file that is **active** and should be **tailed**
   * of course, the above is all wrong if a server is used to centralize unified2 files from multiple sensors
+    * then again, one could just run this version of unifiedbeat for each folder (i.e. each sensor)
 * [x] add ```os.Stat(r.reader.File.Name())``` to ```spoolrecordreader.go```
   * to deal with renamed or deleted files
 * [x] add sample unified2 files in ```sample_data```
