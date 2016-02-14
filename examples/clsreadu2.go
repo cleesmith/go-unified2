@@ -6,9 +6,11 @@ import (
 	"os"
 
 	// "github.com/jasonish/go-unified2"
+
+	"github.com/cleesmith/go-unified2"
 )
 
-// go run clsreadu2.go sample_data/snort.log.1452978988
+// go run clsreadu2.go ../sample_data/snort.log.1452978988
 
 func main() {
 	var etot, ptot, xtot, ttot int64

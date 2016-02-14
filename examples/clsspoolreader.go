@@ -6,11 +6,10 @@ import (
 	"os"
 	"time"
 
-	// "github.com/jasonish/go-unified2"
-	// "github.com/cleesmith/go-unified2"
+	"github.com/cleesmith/go-unified2"
 )
 
-// go run clsspoolreader.go sample_data snort.log
+// go run clsspoolreader.go ../sample_data snort.log
 
 func main() {
 	folder := os.Args[1]     // sample_data
