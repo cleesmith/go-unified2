@@ -4,6 +4,7 @@
 
 #### Feb 14, 2016:
 
+* [Filebeat](https://github.com/elastic/beats)'s prospector/harvester approach is inappropriate for unifiedbeat
 * add ```os.Stat(r.reader.File.Name())``` to ```spoolrecordreader.go```
   * handles disappearing/renamed files
 * add sample unified2 files in ```sample_data```
