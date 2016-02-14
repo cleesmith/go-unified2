@@ -1,3 +1,5 @@
+***
+
 ### Changes
 
 #### Feb 14, 2016:
@@ -9,6 +11,7 @@
   * ```clsreadu2.go``` simple reader with counts
   * ```clsspoolreader.go``` to test **SpoolRecordReader**
 
+***
 ***
 
 # go-unified2 [![GoDoc](https://godoc.org/github.com/jasonish/go-unified2?status.png)](https://godoc.org/github.com/jasonish/go-unified2)
