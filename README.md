@@ -17,12 +17,12 @@
 * [x] add examples
   * ```clsreadu2.go``` simple reader with counts
   * ```clsspoolreader.go``` to test **SpoolRecordReader**
-    * add ```CloseHook``` to **rename** (_archive_) an indexed file
-      * otherwise there's an endless reading loop
+    * use ```CloseHook``` to **rename** (_archive_) an indexed file
+      * otherwise, an _endless reading loop_ occurs
 * [x] add new fields to the SpoolRecordReader struct:
-  * FileSource - the file currently being tailed (read)
-  * FileOffset - the offset position into FileSource
-  * these fields allow for a registry file (bookmark)
+  * ```FileSource``` - the file currently being tailed (read)
+  * ```FileOffset``` - the offset position into FileSource
+  * these fields allow for a registry file -- to bookmark where we were if interrupted
 
 ***
 ***
