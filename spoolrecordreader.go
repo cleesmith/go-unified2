@@ -196,7 +196,8 @@ func (r *SpoolRecordReader) Next() (interface{}, error) {
 // and its read position (the offset).
 func (r *SpoolRecordReader) Offset() (string, int64) {
 	if r.reader != nil {
-		return path.Base(r.reader.Name()), r.reader.Offset()
+		// return path.Base(r.reader.Name()), r.reader.Offset()
+		return r.reader.Name(), r.reader.Offset()
 	} else {
 		return "", 0
 	}

@@ -13,6 +13,7 @@
     * then again, one could just run this version of unifiedbeat for each folder (i.e. each sensor) [KISS]
 * [x] add ```os.Stat(r.reader.File.Name())``` to ```spoolrecordreader.go```
   * to deal with renamed or deleted files
+* [x] change ```Offset()``` in ```spoolrecordreader.go``` to return full path not just ```path.Base```
 * [x] add sample unified2 files in ```sample_data```
 * [x] add examples
   * ```clsreadu2.go``` simple reader with counts
