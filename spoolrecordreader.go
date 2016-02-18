@@ -45,11 +45,13 @@ import (
 type SpoolRecordReader struct {
 	// CloseHook will be called when a file is closed.
 	// It can be used to delete, archive, or rename the file.
-	CloseHook func(string)
-	directory string
-	prefix    string
-	logger    *log.Logger
-	reader    *RecordReader
+	CloseHook  func(string)
+	FileSource string
+	FileOffset int64
+	directory  string
+	prefix     string
+	logger     *log.Logger
+	reader     *RecordReader
 }
 
 // NewSpoolRecordReader creates a new RecordSpoolReader reading files
@@ -98,7 +100,7 @@ func (r *SpoolRecordReader) getFiles() ([]os.FileInfo, error) {
 func (r *SpoolRecordReader) openNext() bool {
 	files, err := r.getFiles()
 	if err != nil {
-		r.log("Failed to get filenames: %s", err)
+		r.log("openNext: failed to get filenames: %s", err)
 		return false
 	}
 	// cls: list files found: order is ascending
@@ -112,7 +114,7 @@ func (r *SpoolRecordReader) openNext() bool {
 	}
 
 	if r.reader != nil {
-		r.log("Currently open file: %s", r.reader.Name())
+		r.log("openNext: currently open file: %s", r.reader.Name())
 	}
 
 	var nextFilename string
@@ -131,24 +133,24 @@ func (r *SpoolRecordReader) openNext() bool {
 
 	// r.log("openNext: nextFilename: %#v", nextFilename)
 	if nextFilename == "" {
-		r.log("No new files found.")
+		r.log("openNext: no new files found.")
 		return false
 	}
 
 	if r.reader != nil {
-		r.log("Closing %s.", r.reader.Name())
+		r.log("openNext: closing file '%s'.", r.reader.Name())
 		r.reader.Close()
-
 		// Call the close hook if set.
 		if r.CloseHook != nil {
 			r.CloseHook(r.reader.Name())
 		}
 	}
 
-	r.log("Opening file %s", nextFilename)
+	r.log("openNext: opening file %#v", nextFilename)
 	r.reader, err = NewRecordReader(nextFilename, 0)
+	r.log("openNext: FileSource=%#v", r.FileSource)
 	if err != nil {
-		r.log("Failed to open %s: %s", nextFilename, err)
+		r.log("openNext: failed to open '%s': err: %s", nextFilename, err)
 		return false
 	}
 	return true
