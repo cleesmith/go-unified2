@@ -1,8 +1,8 @@
 ***
 
-### Changes needed to properly handle a folder (spool) of unified2 files in [Unifiedbeat](https://github.com/cleesmith/unifiedbeat)
+### Feb 18, 2016:
 
-#### Feb 18, 2016:
+### To properly handle a folder (spool) of unified2 files in [Unifiedbeat](https://github.com/cleesmith/unifiedbeat)
 
 * [x] [Filebeat](https://github.com/elastic/beats)'s prospector/harvester approach is inappropriate for unifiedbeat
   * while unifiedbeat does work **as-is** today, changes should recognize:
