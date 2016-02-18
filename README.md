@@ -2,9 +2,9 @@
 
 ### Changes needed to use the spooler feature in [Unifiedbeat](https://github.com/cleesmith/unifiedbeat)
 
-#### Feb 14, 2016:
+#### Feb 18, 2016:
 
-* [ ] [Filebeat](https://github.com/elastic/beats)'s prospector/harvester approach is inappropriate for unifiedbeat
+* [x] [Filebeat](https://github.com/elastic/beats)'s prospector/harvester approach is inappropriate for unifiedbeat
   * while unifiedbeat does work **as-is** today, changes should recognize:
     * the volume of data is a lot less than syslogs (given a well tuned sensor)
     * there's only one folder containing unified2 files
@@ -19,6 +19,10 @@
   * ```clsspoolreader.go``` to test **SpoolRecordReader**
     * add ```CloseHook``` to **rename** (_archive_) an indexed file
       * otherwise there's an endless reading loop
+* [x] add new fields to the SpoolRecordReader struct:
+  * FileSource - the file currently being tailed (read)
+  * FileOffset - the offset position into FileSource
+  * these fields allow for a registry file (bookmark)
 
 ***
 ***
