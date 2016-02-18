@@ -1,6 +1,6 @@
 ***
 
-### Changes needed to use the spooler feature in [Unifiedbeat](https://github.com/cleesmith/unifiedbeat)
+### Changes needed to properly handle a folder (spool) of unified2 files in [Unifiedbeat](https://github.com/cleesmith/unifiedbeat)
 
 #### Feb 18, 2016:
 
