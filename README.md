@@ -24,6 +24,7 @@
   * ```FileSource``` - the file currently being tailed (read)
   * ```FileOffset``` - the offset position into FileSource
   * these fields allow for a registry file -- to bookmark where we were if interrupted
+  * use these fields in ```openNext``` to set the offset in the call to ```NewRecordReader```
 
 ***
 ***

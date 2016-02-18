@@ -145,9 +145,14 @@ func (r *SpoolRecordReader) openNext() bool {
 		}
 	}
 
-	r.log("openNext: opening file %#v", nextFilename)
-	r.reader, err = NewRecordReader(nextFilename, 0)
-	r.log("openNext: FileSource=%#v", r.FileSource)
+	r.log("openNext: opening file '%v'", nextFilename)
+	r.log("openNext: FileSource.: '%v'", r.FileSource)
+	r.log("openNext: FileOffset=%v", r.FileOffset)
+	if nextFilename == r.FileSource {
+		r.reader, err = NewRecordReader(nextFilename, r.FileOffset)
+	} else {
+		r.reader, err = NewRecordReader(nextFilename, 0)
+	}
 	if err != nil {
 		r.log("openNext: failed to open '%s': err: %s", nextFilename, err)
 		return false
