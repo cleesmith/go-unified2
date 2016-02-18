@@ -98,15 +98,14 @@ func (r *SpoolRecordReader) getFiles() ([]os.FileInfo, error) {
 // openNext opens the next available file if it exists.
 // If a new file is opened its filename will be returned.
 func (r *SpoolRecordReader) openNext() bool {
+	// feb 2016: "r.getFiles" calls "ioutil.ReadDir" which
+	// as the golang docs say are sorted by filename ...
+	// that's "sorted" as in ascending alphabetical order
 	files, err := r.getFiles()
 	if err != nil {
 		r.log("openNext: failed to get filenames: %s", err)
 		return false
 	}
-	// cls: list files found: order is ascending
-	// for _, file := range files {
-	// 	r.log("openNext: file: %#v", file)
-	// }
 
 	if len(files) == 0 {
 		// Nothing to do.
